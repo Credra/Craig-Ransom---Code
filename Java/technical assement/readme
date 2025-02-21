@@ -1,0 +1,28 @@
+These two java files contain my solution to a technical interview I completed.
+The task was had to code a programme that would assign frequencies to cellphones, ensuring that the cellphones that are the closest together had different frequencies.
+
+Below is a description of the solution I implemented.
+
+Algorithm:
+1.	Find a cluster of phones with a size equal to the number of available frequencies that are the closest to each other, in this case a cluster size of 6.
+a.	Find the Euclidean distance between all the phones and find the phone that has the smallest total distance to the 5 closest phones and make these phones the cluster. Euclidean distance was calculated using Easting and Northing.
+b.	Assign each of those 6 phones a unique frequency
+2.	Loop through the remaining phones with an unassigned frequency
+a.	For each of the 6 frequencies store the minimum distance between the current phone and a phone of that frequency.
+b.	For each phone store the maximum distance and frequency of the 6 minimum distances from 2a.
+c.	Assign the phone with the smallest maximum distance in 3b to that frequency
+d.	Repeat until all phones are labelled
+
+
+The problem was solved in Java. A Phone class was created with the following variables:
+•	easting – stores the easting value of the phone
+•	northing – stores the northing value of the phone
+•	 longitude – stores the longitude value of the phone
+•	 latitude – stores the latitude value of the phone
+•	 ID – stores the character ID of the phone
+•	 index – stores the index of the phone in terms of the data received.
+o	This is used to index the 2D Euclidean distance array 
+•	 frequency – stores the assigned frequency of the phone
+Two linked lists were used. One for phones with an assigned frequency and one for phones that have not yet been assigned a frequency. This was chosen so that when looping through the phones with an assigned frequency the unassigned phones were not included in the loop and vice versa. Two integers were used to keep track of the number of phones in each linked list, and when a phone was assigned a frequency, it was removed from the unassigned linked list and added to the assigned linked list and the integers are updated accordingly.
+
+A function to calculate the Euclidean distance between each of the phone was implemented. The function took the northing and easting for each of the phones as a parameter and populated a 2D array with the Euclidean distance between each of the phones. On the diagonals, where the row and column are equal, the distance is 0 as it would be the distance to itself, and so it was not calculated and just set to 0. The array is also symmetrical about the diagonal and so only the upper triangular was calculated and the lower triangular was set to the same value as the upper triangular.
